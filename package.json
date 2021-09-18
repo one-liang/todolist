@@ -8,6 +8,7 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
     "vue": "^3.2.6"
   },
   "devDependencies": {
