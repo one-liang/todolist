@@ -6,8 +6,8 @@ export default {
   setup() {
     const todos = useLocalStorage("todos", [
       {
-        id: 1,
-        content: "test",
+        id: Date.now(),
+        content: "Vite + Tailwind CSS",
         isDone: false,
       },
     ]);
