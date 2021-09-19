@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 export default {
   name: "List",
-  emits: ["update-state", "delete-todo"],
+  emits: ["update-state", "update-todo", "delete-todo"],
   props: {
     todo: {
       type: Object,
@@ -11,10 +11,21 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const isEditing = ref(false);
+
     const newContent = ref(props.content);
 
     const updateState = (evt) => {
       emit("update-state", props.todo.id, evt.target.checked);
+    };
+
+    const editTodo = () => {
+      isEditing.value = true;
+    };
+
+    const updateTodo = () => {
+      emit("update-todo", props.todo.id, newContent.value);
+      isEditing.value = false;
     };
 
     const deleteTodo = () => {
@@ -22,8 +33,11 @@ export default {
     };
 
     return {
+      isEditing,
       newContent,
       updateState,
+      editTodo,
+      updateTodo,
       deleteTodo,
     };
   },
@@ -31,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <li class="flex justify-between px-4 py-2 bg-white rounded-md">
+  <li class="flex justify-between px-4 py-3 bg-white rounded-md">
     <div class="flex items-center w-full space-x-3">
       <input
         class="w-5 h-5 text-gray-800 rounded-full cursor-pointer focus:ring-0 active:scale-90"
@@ -40,13 +54,17 @@ export default {
         @change="updateState"
       />
       <div
-        class="w-full border-none px-2 text-gray-800 focus:ring-0 focus:border"
+        v-if="!isEditing"
+        class="w-full border-none px-2 text-gray-800 leading-10 focus:ring-0 focus:border"
         :class="todo.isDone ? 'line-through' : ''"
+        @dblclick="editTodo"
       >{{ todo.content }}</div>
       <input
+        v-if="isEditing"
         v-model="newContent"
-        class="w-full border-none px-2 text-gray-800 focus:ring-gray-800"
+        class="w-full border-none px-2 rounded-md text-gray-800 focus:ring-gray-800"
         type="text"
+        @keydown.enter="updateTodo"
       />
     </div>
     <button

@@ -28,6 +28,12 @@ export default {
       }
     };
 
+    const updateTodo = (id, newContent) => {
+      console.log("updateTodo", id, newContent);
+      const todoIndex = todos.value.findIndex((todo) => todo.id === id);
+      todos.value[todoIndex].content = newContent;
+    };
+
     const deleteTodo = (id) => {
       console.log("deleteTodo", id);
       const todoIndex = todos.value.findIndex((todo) => todo.id === id);
@@ -38,6 +44,7 @@ export default {
       todos,
       addTodo,
       updateState,
+      updateTodo,
       deleteTodo,
     };
   },
@@ -58,6 +65,7 @@ export default {
           :key="todo.id"
           :todo="todo"
           @update-state="updateState"
+          @update-todo="updateTodo"
           @delete-todo="deleteTodo"
         />
       </ul>
