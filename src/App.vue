@@ -13,7 +13,6 @@ export default {
     ]);
 
     const addTodo = (newTodo) => {
-      console.log("addTodo", newTodo);
       todos.value.push({
         id: Date.now(),
         content: newTodo,
@@ -22,7 +21,6 @@ export default {
     };
 
     const updateState = (id, newState) => {
-      console.log("updateState", id, newState);
       const todoIndex = todos.value.findIndex((todo) => todo.id === id);
       if (todoIndex !== -1) {
         todos.value[todoIndex].isDone = newState;
@@ -30,13 +28,11 @@ export default {
     };
 
     const updateTodo = (id, newContent) => {
-      console.log("updateTodo", id, newContent);
       const todoIndex = todos.value.findIndex((todo) => todo.id === id);
       todos.value[todoIndex].content = newContent;
     };
 
     const deleteTodo = (id) => {
-      console.log("deleteTodo", id);
       const todoIndex = todos.value.findIndex((todo) => todo.id === id);
       todos.value.splice(todoIndex, 1);
     };
