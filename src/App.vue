@@ -1,21 +1,18 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+export default {};
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
-</template>
+  <div class="min-h-screen bg-gray-800 py-10">
+    <h1 class="text-5xl text-white text-center font-semibold uppercase mb-8">Todolist</h1>
+    <div class="max-w-md bg-gray-100 rounded-lg shadow-lg h-96 mx-auto p-8">
+      <InputBox class="mb-6" />
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+      <Filters class="mb-4" />
+
+      <ul class="space-y-4">
+        <List v-for="item in 3" :key="item" />
+      </ul>
+    </div>
+  </div>
+</template>
