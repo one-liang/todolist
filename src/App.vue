@@ -20,9 +20,18 @@ export default {
       });
     };
 
+    const updateState = (id, newState) => {
+      console.log("updateState", id, newState);
+      const todoIndex = todos.value.findIndex(todo => todo.id === id);
+      if (todoIndex !== -1) {
+        todos.value[todoIndex].isDone = newState;
+      }
+    };
+
     return {
       todos,
       addTodo,
+      updateState,
     };
   },
 };
@@ -37,7 +46,7 @@ export default {
       <Filters class="mb-4" />
 
       <ul class="space-y-4">
-        <List v-for="todo in todos" :key="todo.id" :todo="todo" />
+        <List v-for="todo in todos" :key="todo.id" :todo="todo" @update-state="updateState" />
       </ul>
     </div>
   </div>

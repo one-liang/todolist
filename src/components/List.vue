@@ -3,17 +3,23 @@ import { ref } from "vue";
 
 export default {
   name: "List",
+  emits: ["update-state"],
   props: {
     todo: {
       type: Object,
       default: () => {},
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const newContent = ref(props.content);
+
+    const updateState = (evt) => {
+      emit("update-state", props.todo.id, evt.target.checked);
+    };
 
     return {
       newContent,
+      updateState
     };
   },
 };
@@ -25,9 +31,12 @@ export default {
       <input
         class="w-5 h-5 text-gray-800 rounded-full cursor-pointer focus:ring-0 active:scale-90"
         type="checkbox"
+        :checked="todo.isDone"
+        @change="updateState"
       />
       <div
         class="w-full border-none px-2 text-gray-800 focus:ring-0 focus:border"
+        :class="todo.isDone ? 'line-through' : ''"
       >{{ todo.content }}</div>
       <input
         v-model="newContent"
