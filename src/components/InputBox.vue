@@ -1,9 +1,13 @@
 
 <script>
 import { ref } from "vue";
+import { PlusIcon } from "@heroicons/vue/solid";
 
 export default {
   name: "InputBox",
+  components: {
+    PlusIcon,
+  },
   emits: ["add-todo"],
   setup(props, { emit }) {
     const newTodo = ref("");
@@ -34,6 +38,8 @@ export default {
       class="absolute right-0 top-0 w-10 h-10 rounded-full bg-gray-800 text-white text-xl duration-200 hover:rotate-90 active:scale-90"
       type="button"
       @click="handleAddTodo"
-    >+</button>
+    >
+      <PlusIcon class="w-5 h-5 fill-current mx-auto" />
+    </button>
   </form>
 </template>
