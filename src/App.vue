@@ -1,9 +1,10 @@
 <script>
 import { computed, ref } from "vue";
+import { useLocalStorage } from "@vueuse/core";
 
 export default {
   setup() {
-    const todos = ref([
+    const todos = useLocalStorage("todos", [
       {
         id: 1,
         content: "test",
@@ -85,7 +86,8 @@ export default {
         enter-to-class="opacity-100 scale-100"
         leave-active-class="transition"
         leave-from-class="opacity-100 scale-100"
-        leave-to-class="opacity-0 scale-90">
+        leave-to-class="opacity-0 scale-90"
+      >
         <List
           v-for="todo in filteredTodos"
           :key="todo.id"
