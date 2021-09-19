@@ -42,7 +42,7 @@ export default {
       <button
         :class="filter === 'isDone' ? 'text-gray-700' : 'text-gray-300'"
         @click="updateFilter('isDone')"
-        class="font-semibold text-gray-300"
+        class="font-semibold"
         type="button"
       >已完成</button>
     </li>
