@@ -22,16 +22,23 @@ export default {
 
     const updateState = (id, newState) => {
       console.log("updateState", id, newState);
-      const todoIndex = todos.value.findIndex(todo => todo.id === id);
+      const todoIndex = todos.value.findIndex((todo) => todo.id === id);
       if (todoIndex !== -1) {
         todos.value[todoIndex].isDone = newState;
       }
+    };
+
+    const deleteTodo = (id) => {
+      console.log("deleteTodo", id);
+      const todoIndex = todos.value.findIndex((todo) => todo.id === id);
+      todos.value.splice(todoIndex, 1);
     };
 
     return {
       todos,
       addTodo,
       updateState,
+      deleteTodo,
     };
   },
 };
@@ -40,13 +47,19 @@ export default {
 <template>
   <div class="min-h-screen bg-gray-800 py-10">
     <h1 class="text-5xl text-white text-center font-semibold uppercase mb-8">Todolist</h1>
-    <div class="max-w-md bg-gray-100 rounded-lg shadow-lg h-96 mx-auto p-8">
+    <div class="max-w-md bg-gray-100 rounded-lg shadow-lg min-h-96 mx-auto p-8">
       <InputBox class="mb-6" @add-todo="addTodo" />
 
       <Filters class="mb-4" />
 
       <ul class="space-y-4">
-        <List v-for="todo in todos" :key="todo.id" :todo="todo" @update-state="updateState" />
+        <List
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo"
+          @update-state="updateState"
+          @delete-todo="deleteTodo"
+        />
       </ul>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 export default {
   name: "List",
-  emits: ["update-state"],
+  emits: ["update-state", "delete-todo"],
   props: {
     todo: {
       type: Object,
@@ -17,9 +17,14 @@ export default {
       emit("update-state", props.todo.id, evt.target.checked);
     };
 
+    const deleteTodo = () => {
+      emit("delete-todo", props.todo.id);
+    };
+
     return {
       newContent,
-      updateState
+      updateState,
+      deleteTodo,
     };
   },
 };
@@ -44,7 +49,11 @@ export default {
         type="text"
       />
     </div>
-    <button class="text-gray-300 ml-3 hover:text-red-500 active:scale-90" type="button">
+    <button
+      class="text-gray-300 ml-3 hover:text-red-500 active:scale-90"
+      type="button"
+      @click="deleteTodo"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4 fill-current"
