@@ -77,7 +77,15 @@ export default {
 
       <Filters :filter="filter" @update-filter="updatefilter" class="mb-4" />
 
-      <ul class="space-y-4">
+      <transition-group
+        tag="ul"
+        class="space-y-4"
+        enter-active-class="transition duration-300"
+        enter-from-class="opacity-0 scale-90"
+        enter-to-class="opacity-100 scale-100"
+        leave-active-class="transition"
+        leave-from-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-90">
         <List
           v-for="todo in filteredTodos"
           :key="todo.id"
@@ -86,7 +94,7 @@ export default {
           @update-todo="updateTodo"
           @delete-todo="deleteTodo"
         />
-      </ul>
+      </transition-group>
     </div>
   </div>
 </template>
