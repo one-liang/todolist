@@ -1,5 +1,5 @@
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export default {
   setup() {
@@ -40,12 +40,30 @@ export default {
       todos.value.splice(todoIndex, 1);
     };
 
+    const filter = ref("all");
+
+    const filteredTodos = computed(() => {
+      if (filter.value === "isDone") {
+        return todos.value.filter((todo) => todo.isDone);
+      } else if (filter.value === "unDone") {
+        return todos.value.filter((todo) => !todo.isDone);
+      }
+      return todos.value;
+    });
+
+    const updatefilter = (newFilter) => {
+      filter.value = newFilter;
+    };
+
     return {
       todos,
       addTodo,
       updateState,
       updateTodo,
       deleteTodo,
+      filter,
+      filteredTodos,
+      updatefilter,
     };
   },
 };
@@ -57,11 +75,11 @@ export default {
     <div class="max-w-md bg-gray-100 rounded-lg shadow-lg min-h-96 mx-auto p-8">
       <InputBox class="mb-6" @add-todo="addTodo" />
 
-      <Filters class="mb-4" />
+      <Filters :filter="filter" @update-filter="updatefilter" class="mb-4" />
 
       <ul class="space-y-4">
         <List
-          v-for="todo in todos"
+          v-for="todo in filteredTodos"
           :key="todo.id"
           :todo="todo"
           @update-state="updateState"
