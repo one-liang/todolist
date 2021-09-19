@@ -1,21 +1,41 @@
 <script>
+import { ref } from "vue";
+
 export default {
   name: "List",
+  props: {
+    todo: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  setup(props) {
+    const newContent = ref(props.content);
+
+    return {
+      newContent,
+    };
+  },
 };
 </script>
 
 <template>
   <li class="flex justify-between px-4 py-2 bg-white rounded-md">
     <div class="flex items-center w-full space-x-3">
-      <input class="w-5 h-5 text-gray-800 rounded-full cursor-pointer focus:ring-0 active:scale-90" type="checkbox" />
-      <div class="w-full border-none px-2 text-gray-800 focus:ring-0 focus:border">test</div>
       <input
+        class="w-5 h-5 text-gray-800 rounded-full cursor-pointer focus:ring-0 active:scale-90"
+        type="checkbox"
+      />
+      <div
+        class="w-full border-none px-2 text-gray-800 focus:ring-0 focus:border"
+      >{{ todo.content }}</div>
+      <input
+        v-model="newContent"
         class="w-full border-none px-2 text-gray-800 focus:ring-gray-800"
         type="text"
-        value="text"
       />
     </div>
-    <button class="text-gray-300 ml-3 hover:text-red-700 active:scale-90" type="button">
+    <button class="text-gray-300 ml-3 hover:text-red-500 active:scale-90" type="button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4 fill-current"
