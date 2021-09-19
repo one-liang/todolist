@@ -9,7 +9,7 @@ export default {
     const newTodo = ref("");
 
     const handleAddTodo = () => {
-      console.log("handleAddTodo");
+      if (!newTodo.value) return;
       emit("add-todo", newTodo.value);
 
       newTodo.value = "";
@@ -27,7 +27,7 @@ export default {
   <form class="relative">
     <input
       v-model.trim="newTodo"
-      class="w-full border-none bg-white rounded-full duration-200 shadow-md pl-4 pr-12 focus:ring-0"
+      class="w-full border-0 bg-white rounded-full duration-200 shadow-md pl-4 pr-12 focus:ring-0 focus:shadow-none"
       type="text"
     />
     <button
